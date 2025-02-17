@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function App() {
   const [scores, setScores] = useState([]);
-  const ws = new WebSocket("YOUR_WEBSOCKET_URL");
+  const ws = new WebSocket(wss://v7xr2g4fgh.execute-api.us-east-1.amazonaws.com/production/);
 
   useEffect(() => {
     ws.onmessage = (event) => {
