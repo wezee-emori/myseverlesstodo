@@ -1,29 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
-  const [task, setTask] = useState("");
-  const [message, setMessage] = useState("");
+  const [scores, setScores] = useState([]);
+  const ws = new WebSocket("YOUR_WEBSOCKET_URL");
 
-  const addTask = async () => {
-    const res = await fetch(https://dpc1ccf9hc.execute-api.us-east-1.amazonaws.com, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: Date.now().toString(), task })
-    });
-    const data = await res.json();
-    setMessage(data.message);
-  };
+  useEffect(() => {
+    ws.onmessage = (event) => {
+      setScores(JSON.parse(event.data));
+    };
+  }, []);
 
   return (
     <div>
-      <h1>Serverless To-Do List</h1>
-      <input value={task} onChange={(e) => setTask(e.target.value)} />
-      <button onClick={addTask}>Add Task</button>
-      {message && <p>{message}</p>}
+      <h1>Live Scores</h1>
+      {scores.map((match) => (
+        <p key={match.match_id}>{match.score}</p>
+      ))}
     </div>
   );
 }
 
 export default App;
+
 
 
